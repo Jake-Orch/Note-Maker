@@ -49,7 +49,6 @@ notesRoute.post('/', (req, res) => {
 notesRoute.delete('/:id', (req, res) => {
   const selectedId = req.params.id
   let tempNotes = []
-  console.info(selectedId);
   for (let i = 0; i < db.length; i++) {
     const note = db[i];
 
@@ -60,9 +59,10 @@ notesRoute.delete('/:id', (req, res) => {
   db = tempNotes
   fs.writeFile('./db/db.json',
     JSON.stringify(db),
-    (writeErr) => {
-      if (writeErr) throw writeErr;
-    }
+    (writeErr) =>
+      writeErr
+        ? console.error(writeErr)
+        : console.info('Note deleted successfully!')
   );
   res.json(db)
 });
