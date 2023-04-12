@@ -4,9 +4,6 @@ const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 let db = require('../db/db.json');
 
-// router.put('/notes') etc.
-
-
 notesRoute.get('/', (req, res) => {
   fs.readFile('./db/db.json', 'utf8', (e, d) => {
     if (e) {
@@ -40,10 +37,11 @@ notesRoute.post('/', (req, res) => {
               ? console.error(writeErr)
               : console.info('Note added successfully!')
         );
+        res.json(parsedData)
       }
     });
   }
-  res.json(parsedData)
+  
 });
 
 notesRoute.delete('/:id', (req, res) => {
