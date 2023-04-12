@@ -2,7 +2,7 @@ const express = require('express');
 const notesRoute = express.Router();
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
-const db = require ('../db/db.json');
+let db = require('../db/db.json');
 
 // router.put('/notes') etc.
 
@@ -48,29 +48,23 @@ notesRoute.post('/', (req, res) => {
 
 notesRoute.delete('/:id', (req, res) => {
   const selectedId = req.params.id
+  let tempNotes = []
   console.info(selectedId);
   for (let i = 0; i < db.length; i++) {
     const note = db[i];
-    const { title, text, id } = note
-   console.info(id);
-   console.info(`SELECTED ID ${selectedId}`)
-    if (id === selectedId) {
-      fs.readFile('./db/db.json', 'utf8', (e, d) => {
-        const parsedData = JSON.parse(d);
-        const theIndex = parsedData.findIndex(item => item.id === selectedId);
-        console.info(theIndex);
-        const slice = parsedData.slice(theIndex);
-        console.info(parsedData);
-        console.info(`Lol` + slice);
-        // fs.writeFile('./db/db.json',
-        // JSON.stringify(parsedData, null, 3),
-        // (writeErr) => 
-        // writeErr
-        // ? console.error(writeErr)
-        // : console.info('Note deleted succesfully!'))
-      })
-    };
+
+    if (note.id != selectedId) {
+      tempNotes.push(note)
+    }
   }
+  db = tempNotes
+  fs.writeFile('./db/db.json',
+    JSON.stringify(db),
+    (writeErr) => {
+      if (writeErr) throw writeErr;
+    }
+  );
+  res.json(db)
 });
 
 
