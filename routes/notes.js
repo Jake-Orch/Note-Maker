@@ -42,7 +42,7 @@ notesRoute.post('/', (req, res) => {
       }
     });
   }
-  location.reload()
+  location.reload();
 });
 
 
