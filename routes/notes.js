@@ -35,29 +35,41 @@ notesRoute.post('/', (req, res) => {
         parsedData.push(newNote);
         fs.writeFile('./db/db.json',
           JSON.stringify(parsedData, null, 3),
-          (writeE) =>
-            writeE
-              ? console.error(writeE)
+          (writeErr) =>
+            writeErr
+              ? console.error(writeErr)
               : console.info('Note added successfully!')
         );
       }
     });
   }
-  res.json(parseData)
+  res.json(parsedData)
 });
 
 notesRoute.delete('/:id', (req, res) => {
-  const id = req.params
+  const selectedId = req.params.id
+  console.info(selectedId);
   for (let i = 0; i < db.length; i++) {
     const note = db[i];
-    console.info(note)
-    const { title, text, noteId } = note
-    if (id === noteId) {
+    const { title, text, id } = note
+   console.info(id);
+   console.info(`SELECTED ID ${selectedId}`)
+    if (id === selectedId) {
       fs.readFile('./db/db.json', 'utf8', (e, d) => {
         const parsedData = JSON.parse(d);
-        const sliced = parsedData.slice(note);
+        const theIndex = parsedData.findIndex(item => item.id === selectedId);
+        console.info(theIndex);
+        const slice = parsedData.slice(theIndex);
+        console.info(parsedData);
+        console.info(`Lol` + slice);
+        // fs.writeFile('./db/db.json',
+        // JSON.stringify(parsedData, null, 3),
+        // (writeErr) => 
+        // writeErr
+        // ? console.error(writeErr)
+        // : console.info('Note deleted succesfully!'))
       })
-    }
+    };
   }
 });
 
