@@ -15,7 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 
-app.use('/notes', notesRoute);
 app.use('/api', api);
 
 
@@ -26,11 +25,6 @@ app.get('/', (req, res) =>
 app.get('/notes', (req, res) => 
     res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
-
-
-app.get('/api/notes', (req, res) => {
-  res.status(200).json(database);
-});
 
 app.listen(PORT, () =>
   console.log(`Serving static asset routes at http://localhost:${PORT}`)
