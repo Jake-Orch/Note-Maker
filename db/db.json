@@ -2,16 +2,16 @@
    {
       "title": "Hello",
       "text": "Good morning",
-      "note_id": "e08cbf77-945e-408e-9da1-51978c6e2728"
+      "id": "e08cbf77-945e-408e-9da1-51978c6e2728"
    },
    {
       "title": "h",
       "text": "gg",
-      "note_id": "211cee63-4c1a-48be-bcd2-163017365c48"
+      "id": "211cee63-4c1a-48be-bcd2-163017365c48"
    },
    {
       "title": "Hi ",
       "text": "Good day",
-      "note_id": "a9049c5b-b8d5-4f64-b06d-d3179d546e24"
+      "id": "a9049c5b-b8d5-4f64-b06d-d3179d546e24"
    }
 ]
